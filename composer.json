@@ -1,0 +1,46 @@
+{
+  "name": "idiosyncratic/spiral-doctrine-bridge",
+  "type": "library",
+  "license": "EUPL-1.2",
+  "description": "Spiral Bridge for Doctrine",
+  "homepage": "https://github.com/idiosyncratic-code/spiral-doctrine-bridge",
+  "support": {
+    "source": "https://github.com/idiosyncratic-code/spiral-doctrine-bridge"
+  },
+  "require": {
+    "php": ">=8.2",
+    "doctrine/orm": "^2.15.3",
+    "ramsey/uuid": "^4.7",
+    "ramsey/uuid-doctrine": "^2.0",
+    "spiral/boot": "^3.7",
+    "spiral/config": "^3.7",
+    "spiral/console": "^3.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Idiosyncratic\\SpiralDoctrineBridge\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Idiosyncratic\\SpiralDoctrineBridge\\": "test"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "scripts": {
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "idiosyncratic/coding-standard": "^3.0",
+    "php-parallel-lint/php-parallel-lint": "^1.3",
+    "phpstan/phpstan": "^1.10",
+    "qossmic/deptrac-shim": "^1.0"
+  }
+}

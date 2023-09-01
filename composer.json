@@ -12,9 +12,11 @@
     "doctrine/orm": "^2.15.3",
     "ramsey/uuid": "^4.7",
     "ramsey/uuid-doctrine": "^2.0",
-    "spiral/boot": "^3.7",
-    "spiral/config": "^3.7",
-    "spiral/console": "^3.7"
+    "spiral/boot": "^3.8",
+    "spiral/cache": "^3.8",
+    "spiral/config": "^3.8",
+    "spiral/console": "^3.8",
+    "symfony/cache": "^6.3"
   },
   "autoload": {
     "psr-4": {

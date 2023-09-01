@@ -19,7 +19,8 @@ final class DoctrineORMConfig extends InjectableConfig
      *     'password': string,
      *     'charset': string,
      *     'metadata_driver': string,
-     *     'metadata_paths': array<string>
+     *     'metadata_paths': array<string>,
+     *     'cache': ?string
      * }
      */
     protected array $config = [
@@ -32,6 +33,7 @@ final class DoctrineORMConfig extends InjectableConfig
         'charset' => '',
         'metadata_driver' => '',
         'metadata_paths' => [],
+        'cache' => null,
     ];
 
     public function getDriver() : string
@@ -78,5 +80,10 @@ final class DoctrineORMConfig extends InjectableConfig
     public function getMetadataPaths() : array
     {
         return $this->config['metadata_paths'];
+    }
+
+    public function getCache() : ?string
+    {
+        return $this->config['cache'];
     }
 }

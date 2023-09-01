@@ -46,6 +46,7 @@ final class DoctrineORMConfigBootloader extends Bootloader
             'charset' => 'utf8',
             'metadata_driver' => 'xml',
             'metadata_paths' => [],
+            'cache' => null,
         ]);
 
         $this->addMetadataPath($directories->get('doctrine-metadata'));
@@ -135,6 +136,15 @@ final class DoctrineORMConfigBootloader extends Bootloader
         $this->configurator->modify(
             DoctrineORMConfig::CONFIG,
             new Set('password', $password),
+        );
+    }
+
+    public function setCache(
+        ?string $cache,
+    ) : void {
+        $this->configurator->modify(
+            DoctrineORMConfig::CONFIG,
+            new Set('cache', $cache),
         );
     }
 }

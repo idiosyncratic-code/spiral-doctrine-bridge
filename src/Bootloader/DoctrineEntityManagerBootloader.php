@@ -14,7 +14,9 @@ use Ramsey\Uuid\Doctrine\UuidType;
 use RuntimeException;
 use Spiral\Boot\Bootloader\Bootloader;
 use Spiral\Boot\EnvironmentInterface;
+use Spiral\Cache\CacheStorageProviderInterface;
 use Spiral\Core\BinderInterface;
+use Symfony\Component\Cache\Adapter\Psr16Adapter;
 
 final class DoctrineEntityManagerBootloader extends Bootloader
 {
@@ -29,28 +31,41 @@ final class DoctrineEntityManagerBootloader extends Bootloader
             EntityManagerInterface::class,
             static function (
                 EnvironmentInterface $env,
-                DoctrineORMConfig $doctrineConfig,
+                CacheStorageProviderInterface $cacheProvider,
+                DoctrineORMConfig $config,
             ) {
+                $devMode = (bool) $env->get('DEBUG');
+
                 $dbParams = [
-                    'driver' => $doctrineConfig->getDriver(),
-                    'host' => $doctrineConfig->getHost(),
-                    'user' => $doctrineConfig->getUser(),
-                    'password' => $doctrineConfig->getPassword(),
-                    'dbname' => $doctrineConfig->getDbname(),
-                    'charset' => $doctrineConfig->getCharset(),
+                    'driver' => $config->getDriver(),
+                    'host' => $config->getHost(),
+                    'user' => $config->getUser(),
+                    'password' => $config->getPassword(),
+                    'dbname' => $config->getDbname(),
+                    'charset' => $config->getCharset(),
                 ];
 
-                switch ($doctrineConfig->getMetadataDriver()) {
+                if ($config->getCache() !== null && $devMode === false) {
+                    $cache = new Psr16Adapter($cacheProvider->storage($config->getCache()));
+                } else {
+                    $cache = null;
+                }
+
+                switch ($config->getMetadataDriver()) {
                     case 'xml':
                         $doctrineConfig = ORMSetup::createXMLMetadataConfiguration(
-                            $doctrineConfig->getMetadataPaths(),
-                            (bool) $env->get('DEBUG'),
+                            $config->getMetadataPaths(),
+                            $devMode,
+                            null,
+                            $cache,
                         );
                         break;
                     case 'yaml':
                         $doctrineConfig = ORMSetup::createYAMLMetadataConfiguration(
-                            $doctrineConfig->getMetadataPaths(),
-                            (bool) $env->get('DEBUG'),
+                            $config->getMetadataPaths(),
+                            $devMode,
+                            null,
+                            $cache,
                         );
                         break;
                     default:

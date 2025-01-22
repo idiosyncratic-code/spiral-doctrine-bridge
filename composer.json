@@ -16,7 +16,7 @@
     "spiral/cache": "^3.8",
     "spiral/config": "^3.8",
     "spiral/console": "^3.8",
-    "symfony/cache": "^6.3"
+    "symfony/cache": "^6.3 || ^7.1"
   },
   "autoload": {
     "psr-4": {
